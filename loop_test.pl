@@ -25,5 +25,5 @@ resposta :- read(I), shell(clear), menuInteracao, sentimento(I), resposta.
 :- initialization loop, halt.
 loop :-
 
-interagir.
+interagir. 
 

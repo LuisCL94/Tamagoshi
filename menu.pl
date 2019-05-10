@@ -70,11 +70,11 @@ menuInteracao :-  nl, write(' 1 - Carinhar'), nl,
  		      write(' 4 - Ignorar'), nl,
 		      write(' 5 - Dar bronca'), nl.
 
-interagir(X) :- write('Seu seu pet se chama '), write(X), write('. Interaja com ele...'), nl, menuInteracao, read(I), sentimento(I), resposta.
+interagir(X, Y) :- write('Seu pet se chama '), write(X), write('. Interaja com ele...'), nl, menuInteracao, nl, read(I), sentimento(I), V=X, resposta(Y, V).
 
-resposta :- read(I), shell(clear), menuInteracao, sentimento(I), resposta.
+resposta(Y, V) :-  read(I), shell(clear), write('Seu pet é um '), raca(Y), nl, sobre(Y), nl,write('---'),nl,write('---'),nl,nl, write('Seu pet se chama '), write(V), write('. Interaja com ele...'), nl, menuInteracao, sentimento(I), resposta(Y, V).
 
-opt(1) :- nl, write('Tamagotchi tá nascendoo...'), nl, nl, sleep(2), X is random(3) + 1 ,  shell(clear), write('Seu pet é um '), raca(X), nl,  sobre(X), nl,write('Dê um nome ao seu pet... '),nl,read(N), nl, interagir(N), resposta, nb_setval(nome, N), nb_setval(tipo,especie(X)), nl.
+opt(1) :- nl, write('Tamagotchi tá nascendoo...'), nl, nl, sleep(2), X is random(3) + 1 ,  shell(clear), write('Seu pet é um '), raca(X), nl, sobre(X), nl,write('Dê um nome ao seu pet... '),nl,read(N), nl, interagir(N, X), resposta, nb_setval(nome, N), nb_setval(tipo,especie(X)), nl.
 
 opt(2) :-   nl, sobre(2),nl.
 opt(3) :-   nl, sobre(2),nl.
