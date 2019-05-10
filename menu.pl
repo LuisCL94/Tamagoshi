@@ -10,16 +10,9 @@ especie(3) :- 'lobo-guara'.
 
 print_raca(X):- X = raca(X),write(X).
 
-
-:- dynamic tamagotchi/2.
-
-tamagotchi(nome, especie).
-
-:- dynamic nroSobre/0,nome/0, tipo/0.
-roSobre.
-Nome.
-Tipo.
-
+nb_setval(nome, '').
+nb_setval(tipo, 0).
+%nb_getval(get,C).
 
 sobre(1):- write('O Tamanduá-Bandeira é um mamífero nativo da América. Ele recebe esse nome uma vez que sua cauda tem forma de uma bandeira.'),nl,
             write('São animais solitários quando atingem a idade adulta. Não são ágeis, nem agressivos.'),nl,
@@ -40,23 +33,37 @@ sobre(3):- write('O lobo-guará é um mamífero que está ameaçado em extinçã
             ,nl.
 
 
-alimento(1) :- [formigas,cupins, centopeias,vermes].
-alimento(2) :- [frutinhas,sementes, ovos,insetos].
-alimento(3) :- [gambas,roedores, aves,lagartos,cobra,insetos].
+alimento(1,formigas).
+alimento(1,cupins).
+alimento(1,centopeias).
+alimento(1,vermes).
+alimento(2,sementes).
+ 
+alimento(2,frutinhas).
+alimento(2,ovos).
+alimento(2,insetos).
 
-carinho(1) :- sim.
-carinho(2) :- sim.
-carinho(3) :- no.
+alimento(3,gambas).
+alimento(3,roedores).
+alimento(3,aves).
+alimento(3,lagartos).
+alimento(3,cobra).
+alimento(3,insetos).
+alimentar(Alimento, X,Lista):- findall(Alimento, alimentos(X,Alimento),Lista).
 
-passeio(1):- sim.
-passeio(2):- sim.
-passeio(3):- no.
+carinho(1,sim).
+carinho(2,sim).
+carinho(3, no).
 
-raca_seler :- X is random(3) + 1 ,  write('Seu pet é um '),raca(X),nl,write('Qual o nome do seu pet '),nl,read(N),Nome is N, Tipo is X, nl.
+passeio(1,sim).
+passeio(2,sim).
+passeio(3,no).
+passear(Pode, X, Lista):- findall(Pode, passeio(X,Pode),Lista).
 
 clear :- write('\33\[2J').  
+tamagotchi(nome,tipo).
 
-opt(1) :- nl, write('Tamagotchi tá nascendoo...'), nl, nl, sleep(1), raca_seler,write('Parabéns! Vc acaba de ter um '), nl.
+opt(1) :- nl, write('Tamagotchi tá nascendoo...'), nl, nl, sleep(1), X is random(3) + 1 ,  write('Seu pet é um '),raca(X),nl,write('Qual o nome do seu pet '),nl,read(N),nb_setval(nome, N), nb_setval(tipo,especie(X)), nl,write('Parabéns! Vc acaba de ter um '), nl.
 opt(2) :-   nl, sobre(2),nl.
 opt(3) :-   nl, sobre(2),nl.
 opt(4) :-   nl, sobre(2),nl.
@@ -86,7 +93,7 @@ menu :-
     write('6 - Alimentar'),nl,
     write('0 -  Sair'), nl, nl, read(Op),nl,nl,write('você escolheu :' ),write(Op),nl,
 
-    opt(Op),nl,sleep(3), menu
+    opt(Op),nl,sleep(3)
 
     .
 
