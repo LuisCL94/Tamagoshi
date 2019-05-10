@@ -6,9 +6,7 @@ especie(1) :- 'tamanduá-bandeira', nl.
 especie(2) :- 'tucano', nl.
 especie(3) :- 'lobo-guara', nl.
 
-
-
-print_raca(X):- X = raca(X),write(X).
+print_raca(X):- X = raca(X), write(X).
 
 nb_setval(nome, '').
 nb_setval(tipo, 0).
@@ -21,11 +19,11 @@ sobre(1):- write('O Tamanduá-Bandeira é um mamífero nativo da América. Ele r
 
 sobre(2):- write('Tucano é uma ave linda, muito colorida e o que chama mais atenção é o bico enorme.'),nl,
             write('O tucano tem cores muito vivas que chamam a atenção das fêmeas. Mas, você acha que o bico dele é pesado? '),nl,
-            write('O tucano é bom de bico... Ele gosta de muitas coisas, podem ser frutinhas e sementes, insetos, ovos de outras aves, lagartixas e pererecas. '),nl,
+            write('O tucano é bom de bico... Ele se alimenta de muitas coisas, podem ser frutinhas e sementes, insetos, ovos de outras aves, lagartixas e pererecas. '),nl,
             write('Podem voar'),nl.
 
 
-sobre(3):- write('O lobo-guará é um mamífero que está ameaçado em extinção.'),nl,
+sobre(3):- write('O lobo-guará é um mamífero que está ameaçado em extinção.'), nl,
             write('Diferentemente de outras espécies de lobo que vivem em matilha, o lobo-guará é um animal de hábito solitário'),nl,
             write('O lobo-guará é um animal onívoro, pois consome uma grande variedade de animais e frutos. '),nl,
             write('Ele se alimenta de pequenos mamíferos, como gambás e roedores, além de aves, lagartos, cobras e insetos.'),
@@ -60,9 +58,23 @@ passeio(2,sim).
 passeio(3,no).
 passear(Pode, X, Lista):- findall(Pode, passeio(X,Pode),Lista).
 
-interagir(X) :- write('Agora seu pet se chama '), write(X), write('. Como vc deseja interagir com ele?'), nl, nl.
+sentimento(1) :- nl, write('To feliz mas to com fome!'), nl, nl.
+sentimento(2) :- nl, write('To feliz mas to morrendo de fome!'), nl, nl.
+sentimento(3) :- nl, write('To muito feliz'), nl, nl.
+sentimento(4) :- nl, write('Estou inconsolável! :('), nl, nl.
+sentimento(5) :- nl, write('Estou muito triste e arrependido! :('), nl, nl.
 
-opt(1) :- nl, write('Tamagotchi tá nascendoo...'), nl, nl, sleep(2), X is random(3) + 1 ,  shell(clear), write('Seu pet é um '), raca(X), nl,  sobre(X), nl,write('Dê um nome ao seu pet... '),nl,read(N), nl, interagir(N) ,nb_setval(nome, N), nb_setval(tipo,especie(X)), nl.
+menuInteracao :-  nl, write(' 1 - Carinhar'), nl,
+ 		      write(' 2 - Passear'), nl,
+		      write(' 3 - Alimentar'), nl,
+ 		      write(' 4 - Ignorar'), nl,
+		      write(' 5 - Dar bronca'), nl.
+
+interagir(X) :- write('Seu seu pet se chama '), write(X), write('. Interaja com ele...'), nl, menuInteracao, read(I), sentimento(I), resposta.
+
+resposta :- read(I), shell(clear), menuInteracao, sentimento(I), resposta.
+
+opt(1) :- nl, write('Tamagotchi tá nascendoo...'), nl, nl, sleep(2), X is random(3) + 1 ,  shell(clear), write('Seu pet é um '), raca(X), nl,  sobre(X), nl,write('Dê um nome ao seu pet... '),nl,read(N), nl, interagir(N), resposta, nb_setval(nome, N), nb_setval(tipo,especie(X)), nl.
 
 opt(2) :-   nl, sobre(2),nl.
 opt(3) :-   nl, sobre(2),nl.
@@ -87,10 +99,6 @@ menu :-
     write('|____/|_|  \\__,_/___|\\__,_|\\___\\__,_|'), nl, nl,
 
     write('1 - Começar'), nl,
-    write('2 - Sobre seu pet'),nl,
-    write('3 - Carinho'),nl,
-    write('5 - Passeio'),nl,
-    write('6 - Alimentar'),nl,
     write('0 -  Sair'), nl, nl, read(Op),nl,nl,write('você escolheu :' ),write(Op),nl,
 
     opt(Op),nl,sleep(3)
