@@ -1,10 +1,10 @@
-raca(1) :- write('tamanduá-bandeira').
-raca(2) :- write('tucano').
-raca(3) :- write('lobo-guara').
+raca(1) :- write('tamanduá-bandeira'), nl.
+raca(2) :- write('tucano'), nl.
+raca(3) :- write('lobo-guara'), nl.
 
-especie(1) :- 'tamanduá-bandeira'.
-especie(2) :- 'tucano'.
-especie(3) :- 'lobo-guara'.
+especie(1) :- 'tamanduá-bandeira', nl.
+especie(2) :- 'tucano', nl.
+especie(3) :- 'lobo-guara', nl.
 
 
 
@@ -20,7 +20,7 @@ sobre(1):- write('O Tamanduá-Bandeira é um mamífero nativo da América. Ele r
             write('Podem andar  e nadar'),nl.
 
 sobre(2):- write('Tucano é uma ave linda, muito colorida e o que chama mais atenção é o bico enorme.'),nl,
-            write(' O tucano tem cores muito vivas que chamam a atenção das fêmeas. Mas, você acha que o bico dele é pesado? '),nl,
+            write('O tucano tem cores muito vivas que chamam a atenção das fêmeas. Mas, você acha que o bico dele é pesado? '),nl,
             write('O tucano é bom de bico... Ele gosta de muitas coisas, podem ser frutinhas e sementes, insetos, ovos de outras aves, lagartixas e pererecas. '),nl,
             write('Podem voar'),nl.
 
@@ -60,10 +60,10 @@ passeio(2,sim).
 passeio(3,no).
 passear(Pode, X, Lista):- findall(Pode, passeio(X,Pode),Lista).
 
-clear :- write('\33\[2J').  
-tamagotchi(nome,tipo).
+interagir(X) :- write('Agora seu pet se chama '), write(X), write('. Como vc deseja interagir com ele?'), nl, nl.
 
-opt(1) :- nl, write('Tamagotchi tá nascendoo...'), nl, nl, sleep(1), X is random(3) + 1 ,  write('Seu pet é um '),raca(X),nl,write('Qual o nome do seu pet '),nl,read(N),nb_setval(nome, N), nb_setval(tipo,especie(X)), nl,write('Parabéns! Vc acaba de ter um '), nl.
+opt(1) :- nl, write('Tamagotchi tá nascendoo...'), nl, nl, sleep(2), X is random(3) + 1 ,  shell(clear), write('Seu pet é um '), raca(X), nl,  sobre(X), nl,write('Dê um nome ao seu pet... '),nl,read(N), nl, interagir(N) ,nb_setval(nome, N), nb_setval(tipo,especie(X)), nl.
+
 opt(2) :-   nl, sobre(2),nl.
 opt(3) :-   nl, sobre(2),nl.
 opt(4) :-   nl, sobre(2),nl.
@@ -101,4 +101,4 @@ menu :-
 
 main :-
 
-    clear, menu, run.   
+    shell(clear), menu, run.   
