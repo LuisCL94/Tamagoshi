@@ -35,8 +35,8 @@ alimento(1,formigas).
 alimento(1,cupins).
 alimento(1,centopeias).
 alimento(1,vermes).
+
 alimento(2,sementes).
- 
 alimento(2,frutinhas).
 alimento(2,ovos).
 alimento(2,insetos).
@@ -47,6 +47,7 @@ alimento(3,aves).
 alimento(3,lagartos).
 alimento(3,cobra).
 alimento(3,insetos).
+
 alimentar(Alimento, X,Lista):- findall(Alimento, alimentos(X,Alimento),Lista).
 
 carinho(1,sim).
