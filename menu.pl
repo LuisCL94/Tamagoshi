@@ -10,9 +10,8 @@ especie(4) :- 'jaguatirica',nl.
 
 print_raca(X):- X = raca(X), write(X).
 
-nb_setval(nome, '').
-nb_setval(tipo, 0).
-%nb_getval(get,C).
+
+
 
 sobre(1):- write('Tipo: 1. O Tamanduá-Bandeira é um mamífero nativo da América. Ele recebe esse nome uma vez que sua cauda tem forma de uma bandeira.'),nl,
             write('São animais solitários quando atingem a idade adulta. Não são ágeis, nem agressivos.'),nl,
@@ -104,7 +103,7 @@ interagir(X, Y) :- write('Seu pet se chama '), write(X), write('. Interaja com e
 
 resposta(Y, V) :-  read(I), shell(clear), write('Seu pet é um '), raca(Y), nl, sobre(Y), nl,write('---'),nl,write('---'),nl,nl, write('Seu pet se chama '), write(V), write('. Interaja com ele...'), nl, menuInteracao, sentimento(I,A), resposta(Y, V).
 
-opt(1) :- nl, write('Tamagotchi tá nascendoo...'), nl, nl, sleep(1), X is random(4) + 1 ,  shell(clear), write('Seu pet é um '), raca(X), nl, sobre(X), nl,write('Dê um nome ao seu pet... '),nl,read(N), nl, interagir(N, X), resposta, nb_setval(nome, N), nb_setval(tipo,especie(X)), nl.
+opt(1) :- nl, write('Tamagotchi tá nascendoo...'), nl, nl, sleep(1), X is random(4) + 1 ,  shell(clear), write('Seu pet é um '), raca(X), nl, sobre(X), nl,write('Dê um nome ao seu pet... '),nl,read(N), nl, interagir(N, X),nl.
 
 opt(0) :- nl, write('Tamagotchi se foi...'), nl, nl,halt.
 
